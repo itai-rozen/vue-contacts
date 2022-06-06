@@ -13,7 +13,7 @@
           <p>Email: {{ contact.email }}</p>
           <p>Phone: 0{{ contact.phone }}</p>
           <p>Address: {{ contact.address }}</p>
-          <p>More about him : "{{contact.additional}}"</p>
+          <p>More about the contact : "{{contact.additional}}"</p>
         </div>
       </div>
     </div>
