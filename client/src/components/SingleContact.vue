@@ -2,21 +2,21 @@
   <div class="contact-container">
     <img :alt="contact.fullname" :src="getImageSrc" />
     <h2>{{ contact.fullname }}</h2>
-      <transition enter-active-class="fade-in" leave-active-class="fade-out">
-    <div class="modal-container" v-if="isInfo">
-      <ContactInfoModal
-        :contact="contact"
-        :image="getImageSrc"
-        @closeModal="() => (this.isInfo = false)"
-      />
-    </div>
-      </transition>
+    <transition enter-active-class="fade-in" leave-active-class="fade-out">
+      <div class="modal-container" v-if="isInfo">
+        <ContactInfoModal
+          :contact="contact"
+          :image="getImageSrc"
+          @closeModal="toggleInfo"
+        />
+      </div>
+    </transition>
     <div class="btn-container">
-      <button @click="() => (this.isInfo = true)">info</button>
+      <button @click="toggleInfo">info</button>
       <button @click="deleteContact(contact.id)">delete</button>
     </div>
-    <div v-if="error !== ''">
-      <p class="error">{{error}}</p>
+    <div v-if="error.length">
+      <p class="error">{{ error }}</p>
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       isInfo: false,
-      error : ""
+      error: "",
     };
   },
   computed: {
@@ -54,16 +54,19 @@ export default {
       address: String,
       image_url: String,
       isFemale: Boolean,
-    }
+    },
   },
   methods: {
     deleteContact: async function (id) {
       try {
         await axios.delete(`http://localhost:3001/${id}`);
-      this.$emit("deleteContact");
-      } catch(err){
-        this.error = err.message
+        this.$emit("deleteContact");
+      } catch (err) {
+        this.error = err.message;
       }
+    },
+    toggleInfo() {
+      this.isInfo = !this.isInfo;
     },
   },
 };
@@ -83,8 +86,4 @@ export default {
 img {
   align-self: baseline;
 }
-
-
-
-
 </style>

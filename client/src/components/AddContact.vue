@@ -4,113 +4,60 @@
       <button @click.stop.prevent="closeModal">X</button>
       <div class="form-details">
         <div>
-
-        <label for="fullname">Full Name</label>
-        <input
-          type="text"
-          v-model="body.fullname"
-          id="fullname"
-          name="fullname"
-          required
-        />
-
+          <label for="fullname">Full Name</label>
+          <input type="text" v-model="body.fullname" id="fullname"
+            name="fullname" required />
         </div>
         <div>
-
-        <label for="username">User Name</label>
-        <input
-          type="text"
-          v-model="body.username"
-          id="username"
-          name="username"
-          required
-        />
+          <label for="username">User Name</label>
+          <input type="text" v-model="body.username" id="username"
+            name="username" required />
         </div>
         <div>
-
-        <label for="nickname"> Nickname</label>
-        <input
-          type="text"
-          v-model="body.nickname"
-          id="nickname"
-          name="nickname"
-          required
-        />
+          <label for="nickname"> Nickname</label>
+          <input type="text" v-model="body.nickname" id="nickname"
+            name="nickname" required />
         </div>
         <div>
-
-        <label for="image_url">Image link</label>
-        <input
-          type="text"
-          v-model="body.image_url"
-          id="image_url"
-          name="image_url"
-        />
+          <label for="image_url">Image link</label>
+          <input type="text" v-model="body.image_url" id="image_url"
+            name="image_url" />
         </div>
         <div>
-
-        <label for="is_female" class="checkbox-label"
-          ><p>gender</p>
-          <p>{{ getGender }}</p>
-          <input
-            type="checkbox"
-            v-model="body.is_female"
-            id="is_female"
-            name="is_female"
-            @check="() => this.is_female = !this.is_female"
-          />
-        </label>
+          <label for="is_female" class="checkbox-label">
+            <p>gender</p>
+            <p>{{ getGender }}</p>
+            <input type="checkbox" v-model="body.is_female" id="is_female"
+              name="is_female" @check="() => (this.is_female = !this.is_female)" />
+          </label>
         </div>
         <div>
-
-        <label for="email">Email</label>
-        <input
-          type="email"
-          v-model="body.email"
-          id="email"
-          name="email"
-          required
-        />
+          <label for="email">Email</label>
+          <input type="email" v-model="body.email" id="email"
+            name="email" required />
         </div>
         <div>
-
-        <label for="num">Phone</label>
-        <input
-          type="phone"
-          v-model="body.phone"
-          id="phone"
-          name="phone"
-          required
-        />
+          <label for="num">Phone</label>
+          <input type="phone" v-model="body.phone" id="phone"
+            name="phone" required />
         </div>
         <div>
-
-        <label for="address">Address</label>
-        <input
-          type="text"
-          v-model="body.address"
-          id="address"
-          name="address"
-          required
-        />
+          <label for="address">Address</label>
+          <input type="text" v-model="body.address" id="address"
+            name="address" required />
         </div>
         <div>
-
-        <label for="additional">anything else?</label>
-        <textarea
-          name="additional"
-          v-model="body.additional"
-          id="additional"
-          cols="30"
-          rows="10"
-        ></textarea>
+          <label for="additional">anything else?</label>
+          <textarea name="additional" v-model="body.additional" id="additional"
+            cols="30" rows="10">
+            </textarea>
         </div>
       </div>
 
       <input type="submit" value="submit" />
-    <div v-if="error !== ''">
-      <p class="error">{{error}}</p>
-    </div>
+      <div v-if="error.length">
+        <p class="error">{{ error }}</p>
+      </div>
     </form>
   </div>
 </template>
@@ -131,7 +78,7 @@ export default {
         additional: "whooop",
         image_url: "",
       },
-      error: ""
+      error: "",
     };
   },
   computed: {
@@ -145,12 +92,11 @@ export default {
     },
     async addContact() {
       try {
-      await axios.post("http://localhost:3001", this.body);
-      this.$emit("addContact");
-      this.$emit("closeModal");
-      } catch(err){
-         this.error = err.response?.data?.sqlMessage
-        
+        await axios.post("http://localhost:3001", this.body);
+        this.$emit("addContact");
+        this.$emit("closeModal");
+      } catch (err) {
+        this.error = err.response?.data?.sqlMessage;
       }
     },
   },
@@ -203,7 +149,6 @@ form.modal > button {
   padding: 10px 0;
   cursor: pointer;
 }
-
 
 input[type="checkbox"] {
   transform: scale(1.5);

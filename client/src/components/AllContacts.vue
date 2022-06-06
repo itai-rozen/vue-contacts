@@ -11,16 +11,16 @@
         </li>
       </transition-group>
     </ul>
-    <button @click="() => (this.showAddForm = true)">add contact</button>
+    <button @click="toggleForm">add contact</button>
     <transition enter-active-class="fade-in" leave-active-class="fade-out">
       <div v-if="showAddForm" class="modal-container">
         <AddContact
-          @closeModal="() => (this.showAddForm = false)"
+          @closeModal="toggleForm"
           @addContact="getContacts"
         />
       </div>
     </transition>
-    <div v-if="error !== ''">
+    <div v-if="error.length ">
       <p class="error">{{ error }}</p>
     </div>
   </div>
@@ -55,6 +55,9 @@ export default {
         this.error = err.message;
       }
     },
+    toggleForm(){
+      this.showAddForm = !this.showAddForm
+    }
   },
 };
 </script>
