@@ -1,17 +1,157 @@
 <template>
-  <div class="form-container">
-    <form>
-      
+  <div class="modal-container">
+    <form class="modal" @submit.prevent="addContact">
+      <button @click.stop.prevent="closeModal">X</button>
+      <div class="form-details">
+        <label for="fullname">Full Name</label>
+        <input
+          type="text"
+          v-model="body.fullname"
+          id="fullname"
+          name="fullname"
+          required
+        />
+        <label for="username">User Name</label>
+        <input
+          type="text"
+          v-model="body.username"
+          id="username"
+          name="username"
+          required
+        />
+        <label for="nickname"> Nickname</label>
+        <input
+          type="text"
+          v-model="body.nickname"
+          id="nickname"
+          name="nickname"
+          required
+        />
+        <label for="image_url">Image link</label>
+        <input
+          type="text"
+          v-model="body.image_url"
+          id="image_url"
+          name="image_url"
+        />
+        <label for="is_female" class="checkbox-label"
+          ><p>gender</p>
+          <p>{{ getGender }}</p>
+          <input
+            type="checkbox"
+            v-model="body.is_female"
+            id="is_female"
+            name="is_female"
+          />
+        </label>
+        <label for="email">Email</label>
+        <input type="email" v-model="body.email" id="email" name="email" required />
+        <label for="num">Phone</label>
+        <input type="phone" v-model="body.phone" id="phone" name="phone" required />
+        <label for="address">Address</label>
+        <input
+          type="text"
+          v-model="body.address"
+          id="address"
+          name="address"
+          required
+        />
+        <label for="additional">anything else?</label>
+        <textarea
+          name="additional"
+          v-model="body.additional"
+          id="additional"
+          cols="30"
+          rows="10"
+        ></textarea>
+      </div>
+
+      <input type="submit" value="submit" />
     </form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-
-}
+  data() {
+    return {
+      body: {
+        fullname: "test",
+        username: "test",
+        nickname: "test",
+        is_female: true,
+        email: "t@t.t",
+        phone: 5546545345,
+        address: "amatzia",
+        additional: "whooop",
+        image_url: null,
+      },
+    };
+  },
+  computed: {
+    getGender() {
+      return this.is_female ? "👱‍♀️ Female" : "🧔 Male";
+    },
+  },
+  methods: {
+    closeModal() {
+      this.$emit("closeModal");
+    },
+    async addContact() {
+      await axios.post('http://localhost:3001', this.body)
+      this.$emit('addContact')
+      this.$emit('closeModal')
+    },
+  },
+};
 </script>
 
 <style>
+form.modal {
+  display: flex;
+  flex-direction: column;
+}
 
+form.modal > button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.form-details {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 80%;
+  font-size: 1.2rem;
+  align-items: flex-start;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.form-details > input {
+  width: 40%;
+  margin: 3px 0;
+  border-radius: 5px;
+  padding: 2px 3px;
+  font-size: 1.2rem;
+}
+
+.checkbox-label {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+  align-items: center;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+input[type="submit"] {
+  justify-self: flex-end;
+}
+input[type="checkbox"] {
+  transform: scale(1.5);
+}
 </style>
