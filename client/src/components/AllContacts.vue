@@ -26,6 +26,7 @@ export default {
   mounted: async function(){
     const { data } = await axios.get('http://localhost:3001/')
     this.contacts = data
+    console.log(this.contacts)
   }
 }
 </script>
