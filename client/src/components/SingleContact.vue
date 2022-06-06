@@ -3,7 +3,7 @@
     <img :alt="contact.fullname" :src="getImageSrc" />
     <h2>{{ contact.fullname }}</h2>
       <transition enter-active-class="fade-in" leave-active-class="fade-out">
-    <div class="contact-info-container" v-if="isInfo">
+    <div class="modal-container" v-if="isInfo">
       <ContactInfoModal
         :contact="contact"
         :image="getImageSrc"
@@ -75,25 +75,8 @@ export default {
 img {
   align-self: baseline;
 }
-.contact-info-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-@keyframes fade {
-  from {
-    opacity: 0
-  }
-  to {
-    opacity: 1
-  }
-}
-.fade-in {
-  animation: fade ease-in 0.3s;
-}
-.fade-out {
-  animation: fade ease-out 0.3s reverse; 
-}
+
+
 
 
 </style>

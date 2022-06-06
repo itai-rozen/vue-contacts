@@ -30,7 +30,7 @@ body {
 }
 
 .header {
-  color: #EFF1F3;
+  color: #eff1f3;
 }
 li {
   list-style: none;
@@ -40,13 +40,50 @@ img {
   width: 100px;
   height: 100px;
 }
-button {
+button, input[type='submit'] {
   font-size: 2rem;
-  background-color: #D77A61;
-  color: #EFF1F3;
+  background-color: #d77a61;
+  color: #eff1f3;
   padding: 5px 10px;
   margin: 4px 8px;
   border-radius: 12px;
   cursor: pointer;
+}
+
+.modal-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.modal {
+  padding: 15px;
+  height: 70%;
+  width: 80%;
+  background-color: #EFF1F3;
+  position: relative;
+  border-radius: 5px;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation: fade ease-in 0.3s;
+}
+.fade-out {
+  animation: fade ease-out 0.3s reverse;
 }
 </style>

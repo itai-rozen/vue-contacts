@@ -1,6 +1,6 @@
 <template>
-  <div class="contact-modal-container">
-    <div class="contact-modal">
+  <div class="modal-container">
+    <div class="modal">
       <button class="close-btn" @click="closeModal">X</button>
       <img :alt="contact.fullname" :src="image" />
       <h2>{{ contact.fullname }}</h2>
@@ -40,23 +40,8 @@ export default {
 </script>
 
 <style scoped>
-.contact-modal-container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-.contact-modal {
-  padding: 15px;
-  height: 70%;
-  width: 80%;
-  background-color: #EFF1F3;
-  position: relative;
-  border-radius: 5px;
-}
+
+
 
 .close-btn {
   position: absolute;
