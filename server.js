@@ -1,13 +1,11 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
-const path = require('path')
 const mysql = require('mysql2')
 require('dotenv').config()
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-// app.use(express.static(path.join(__dirname , 'client/public')))
 const db = mysql.createConnection({
   host:  'sql4.freesqldatabase.com',
   user: 'sql4497999',
