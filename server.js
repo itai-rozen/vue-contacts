@@ -14,7 +14,13 @@ const db = mysql.createConnection({
   port: 3306
 })
 
-
+app.post('/', (req,res) => {
+  const q = "INSERT INTO contacts (`fullname`,`username`,`nickname`,`image_url`,`is_female`,`email`,`phone`,`address`,`additional`) VALUES ('Sharky Rau', 'sharky77','sharky',null, true, 'sharky@s.com', 059111111, 'Haifa 63, Haifa', 'lorem ipsum is my favorite novel')"
+  db.query(q, (err,res) => {
+    console.log('after post: ',res)
+  })
+  res.send('posted')
+})
 
 app.get('/', (req,res) => {
   const q = 'SELECT * FROM contacts;'
