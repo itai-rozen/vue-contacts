@@ -2,16 +2,18 @@
   <div class="contact-container">
     <img :alt="contact.fullname" :src="getImageSrc" />
     <h2>{{ contact.fullname }}</h2>
-    <div class="btn-container">
-      <button @click="() => (this.isInfo = true)">info</button>
-      <button @click="deleteContact(contact.id)">delete</button>
-    </div>
-    <div v-if="isInfo">
+      <transition enter-active-class="fade-in" leave-active-class="fade-out">
+    <div class="contact-info-container" v-if="isInfo">
       <ContactInfoModal
         :contact="contact"
         :image="getImageSrc"
         @closeModal="() => (this.isInfo = false)"
       />
+    </div>
+      </transition>
+    <div class="btn-container">
+      <button @click="() => (this.isInfo = true)">info</button>
+      <button @click="deleteContact(contact.id)">delete</button>
     </div>
   </div>
 </template>
@@ -73,4 +75,25 @@ export default {
 img {
   align-self: baseline;
 }
+.contact-info-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@keyframes fade {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+}
+.fade-in {
+  animation: fade ease-in 0.3s;
+}
+.fade-out {
+  animation: fade ease-out 0.3s reverse; 
+}
+
+
 </style>

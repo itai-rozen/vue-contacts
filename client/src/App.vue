@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1 class="header">My Contacts</h1>
     <AllContacts />
   </div>
 </template>
@@ -23,6 +24,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+body {
+  background-color: #223843;
+}
+
+.header {
+  color: #EFF1F3;
 }
 li {
   list-style: none;

@@ -41,9 +41,6 @@ export default {
 
 <style scoped>
 .contact-modal-container {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -53,10 +50,10 @@ export default {
   z-index: 1;
 }
 .contact-modal {
-  padding: 5px;
+  padding: 15px;
   height: 70%;
   width: 80%;
-  background-color: white;
+  background-color: #EFF1F3;
   position: relative;
   border-radius: 5px;
 }
