@@ -16,7 +16,6 @@ const db = mysql.createConnection({
 
 app.post('/', (req, res) => {
   const { body } = req
-  console.log('body: ', body)
   const q = `
     INSERT INTO contacts (
     ${Object.keys(body).join()}
@@ -30,8 +29,8 @@ app.post('/', (req, res) => {
     );
     `.toString()
 
-  db.query(q, (err, results) => {
-    if (err) res.send({ err: err })
+  db.query(q, (err, _) => {
+    if (err) res.status(400).send(err )
     else res.send({ success: true })
   })
 })

@@ -15,6 +15,9 @@
       <button @click="() => (this.isInfo = true)">info</button>
       <button @click="deleteContact(contact.id)">delete</button>
     </div>
+    <div v-if="error !== ''">
+      <p class="error">{{error}}</p>
+    </div>
   </div>
 </template>
 
@@ -28,6 +31,7 @@ export default {
   data() {
     return {
       isInfo: false,
+      error : ""
     };
   },
   computed: {
@@ -50,12 +54,16 @@ export default {
       address: String,
       image_url: String,
       isFemale: Boolean,
-    },
+    }
   },
   methods: {
     deleteContact: async function (id) {
-      await axios.delete(`http://localhost:3001/${id}`);
+      try {
+        await axios.delete(`http://localhost:3001/${id}`);
       this.$emit("deleteContact");
+      } catch(err){
+        this.error = err.message
+      }
     },
   },
 };

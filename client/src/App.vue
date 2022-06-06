@@ -72,6 +72,17 @@ button, input[type='submit'] {
   border-radius: 5px;
 }
 
+.error {
+  background-color: white;
+  color: red;
+  padding: 5px 10px;
+  font-size: 1.5rem;
+  z-index: 3;
+  margin: 0 auto;
+  text-align: center;
+  border: 3px solid black;
+}
+
 @keyframes fade {
   from {
     opacity: 0;

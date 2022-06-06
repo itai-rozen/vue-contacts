@@ -108,6 +108,9 @@
       </div>
 
       <input type="submit" value="submit" />
+    <div v-if="error !== ''">
+      <p class="error">{{error}}</p>
+    </div>
     </form>
   </div>
 </template>
@@ -124,10 +127,11 @@ export default {
         is_female: true,
         email: "t@t.t",
         phone: 5546545345,
-        address: "amatzia",
+        address: "Tel Aviv",
         additional: "whooop",
         image_url: "",
       },
+      error: ""
     };
   },
   computed: {
@@ -140,10 +144,14 @@ export default {
       this.$emit("closeModal");
     },
     async addContact() {
-      const res = await axios.post("http://localhost:3001", this.body);
-      console.log(res)
+      try {
+      await axios.post("http://localhost:3001", this.body);
       this.$emit("addContact");
       this.$emit("closeModal");
+      } catch(err){
+         this.error = err.response?.data?.sqlMessage
+        
+      }
     },
   },
 };
@@ -196,9 +204,7 @@ form.modal > button {
   cursor: pointer;
 }
 
-input[type="submit"] {
-  justify-self: flex-end;
-}
+
 input[type="checkbox"] {
   transform: scale(1.5);
 }

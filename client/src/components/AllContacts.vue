@@ -13,10 +13,16 @@
     </ul>
     <button @click="() => (this.showAddForm = true)">add contact</button>
     <transition enter-active-class="fade-in" leave-active-class="fade-out">
-      <div  v-if="showAddForm" class="modal-container">
-        <AddContact @closeModal="() => (this.showAddForm = false)" @addContact="getContacts"  />
+      <div v-if="showAddForm" class="modal-container">
+        <AddContact
+          @closeModal="() => (this.showAddForm = false)"
+          @addContact="getContacts"
+        />
       </div>
     </transition>
+    <div v-if="error !== ''">
+      <p class="error">{{ error }}</p>
+    </div>
   </div>
 </template>
 
@@ -34,20 +40,20 @@ export default {
     return {
       contacts: [],
       showAddForm: false,
+      error: "",
     };
   },
   mounted: function () {
     this.getContacts();
-    console.log(this.contacts);
   },
   methods: {
-    async addContact() {
-      await axios.post("http://localhost:3001");
-      this.getContacts();
-    },
     async getContacts() {
-      const { data } = await axios.get("http://localhost:3001/");
-      this.contacts = data;
+      try {
+        const { data } = await axios.get("http://localhost:3001/");
+        this.contacts = data;
+      } catch (err) {
+        this.error = err.message;
+      }
     },
   },
 };
