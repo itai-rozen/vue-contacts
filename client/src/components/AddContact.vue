@@ -3,6 +3,8 @@
     <form class="modal" @submit.prevent="addContact">
       <button @click.stop.prevent="closeModal">X</button>
       <div class="form-details">
+        <div>
+
         <label for="fullname">Full Name</label>
         <input
           type="text"
@@ -11,6 +13,10 @@
           name="fullname"
           required
         />
+
+        </div>
+        <div>
+
         <label for="username">User Name</label>
         <input
           type="text"
@@ -19,6 +25,9 @@
           name="username"
           required
         />
+        </div>
+        <div>
+
         <label for="nickname"> Nickname</label>
         <input
           type="text"
@@ -27,6 +36,9 @@
           name="nickname"
           required
         />
+        </div>
+        <div>
+
         <label for="image_url">Image link</label>
         <input
           type="text"
@@ -34,6 +46,9 @@
           id="image_url"
           name="image_url"
         />
+        </div>
+        <div>
+
         <label for="is_female" class="checkbox-label"
           ><p>gender</p>
           <p>{{ getGender }}</p>
@@ -42,12 +57,34 @@
             v-model="body.is_female"
             id="is_female"
             name="is_female"
+            @check="() => this.is_female = !this.is_female"
           />
         </label>
+        </div>
+        <div>
+
         <label for="email">Email</label>
-        <input type="email" v-model="body.email" id="email" name="email" required />
+        <input
+          type="email"
+          v-model="body.email"
+          id="email"
+          name="email"
+          required
+        />
+        </div>
+        <div>
+
         <label for="num">Phone</label>
-        <input type="phone" v-model="body.phone" id="phone" name="phone" required />
+        <input
+          type="phone"
+          v-model="body.phone"
+          id="phone"
+          name="phone"
+          required
+        />
+        </div>
+        <div>
+
         <label for="address">Address</label>
         <input
           type="text"
@@ -56,6 +93,9 @@
           name="address"
           required
         />
+        </div>
+        <div>
+
         <label for="additional">anything else?</label>
         <textarea
           name="additional"
@@ -64,6 +104,7 @@
           cols="30"
           rows="10"
         ></textarea>
+        </div>
       </div>
 
       <input type="submit" value="submit" />
@@ -72,7 +113,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   data() {
     return {
@@ -85,13 +126,13 @@ export default {
         phone: 5546545345,
         address: "amatzia",
         additional: "whooop",
-        image_url: null,
+        image_url: "",
       },
     };
   },
   computed: {
     getGender() {
-      return this.is_female ? "👱‍♀️ Female" : "🧔 Male";
+      return this.body.is_female ? "👱‍♀️ Female" : "🧔 Male";
     },
   },
   methods: {
@@ -99,9 +140,10 @@ export default {
       this.$emit("closeModal");
     },
     async addContact() {
-      await axios.post('http://localhost:3001', this.body)
-      this.$emit('addContact')
-      this.$emit('closeModal')
+      const res = await axios.post("http://localhost:3001", this.body);
+      console.log(res)
+      this.$emit("addContact");
+      this.$emit("closeModal");
     },
   },
 };
@@ -130,9 +172,15 @@ form.modal > button {
   flex-wrap: wrap;
   padding: 10px;
 }
+.form-details > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 40%;
+  margin: 2px 0;
+}
 
 .form-details > input {
-  width: 40%;
   margin: 3px 0;
   border-radius: 5px;
   padding: 2px 3px;
@@ -142,7 +190,7 @@ form.modal > button {
 .checkbox-label {
   display: flex;
   justify-content: space-between;
-  width: 40%;
+  width: 100%;
   align-items: center;
   padding: 10px 0;
   cursor: pointer;
