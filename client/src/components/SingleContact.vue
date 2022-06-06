@@ -49,6 +49,7 @@ export default {
   methods: {
     deleteContact: async function(id){
       await axios.delete(`http://localhost:3001/${id}`)
+      this.$emit('deleteContact')
     }
   }
 }
