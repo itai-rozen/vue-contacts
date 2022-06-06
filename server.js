@@ -17,7 +17,6 @@ const db = mysql.createConnection({
 app.post('/', (req,res) => {
   const q = "INSERT INTO contacts (`fullname`,`username`,`nickname`,`image_url`,`is_female`,`email`,`phone`,`address`,`additional`) VALUES ('Sharky Rau', 'sharky77','sharky',null, true, 'sharky@s.com', 059111111, 'Haifa 63, Haifa', 'lorem ipsum is my favorite novel')"
   db.query(q, (err,res) => {
-    console.log('after post: ',res)
   })
   res.send('posted')
 })
@@ -31,14 +30,13 @@ app.get('/', (req,res) => {
 })
 
 
-
-
 app.delete('/:id', (req,res) => {
   const { id } = req.params
   const q = `DELETE FROM contacts WHERE id = ${id};`
    db.query(q, (err,res) => {
     if (err) throw err
   })
+  res.end()
 })
 
 db.connect(err => {
