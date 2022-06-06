@@ -1,6 +1,6 @@
 <template>
   <div class="contact-container">
-    <img :src="getImageSrc" :alt="contact.fullname">
+    <img  :alt="contact.fullname" :src="getImageSrc">
     <h2>{{contact.fullname}}</h2>
     <p>nickname: "{{contact.nickname}}"</p>
     <p>username: {{contact.username}}</p>
@@ -27,7 +27,7 @@ export default {
     },
     getImageSrc(){
       if (!this.contact.image_url){
-        return (this.isFemale)? 'assets/femaleAvatar.png' : 'assets/maleAvatar.png' 
+        return (this.contact.is_female)? '/female.png' : '/male.png' 
       }
       return this.contact.image_url
     }
