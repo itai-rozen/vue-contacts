@@ -15,10 +15,14 @@ const db = mysql.createConnection({
 })
 
 app.post('/', (req,res) => {
-  const q = "INSERT INTO contacts (`fullname`,`username`,`nickname`,`image_url`,`is_female`,`email`,`phone`,`address`,`additional`) VALUES ('Sharky Rau', 'sharky77','sharky',null, true, 'sharky@s.com', 059111111, 'Haifa 63, Haifa', 'lorem ipsum is my favorite novel')"
-  db.query(q, (err,res) => {
+  const { body } = req
+  console.log('body: ',body)
+  const q = `INSERT INTO contacts (${Object.keys(body).join()}) VALUES (${Object.values(body).map(val => val? `'${val}'` : 'NULL').join()});`.toString() 
+
+  db.query(q, (err,results) => {
+    if (err) res.send({err: err})
+    else res.send({success: true})
   })
-  res.send('posted')
 })
 
 app.get('/', (req,res) => {
