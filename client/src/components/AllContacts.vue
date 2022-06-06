@@ -7,29 +7,33 @@
         leave-active-class="animate__animated animate__bounceOutDown"
       >
         <li v-for="contact of contacts" :key="contact.id">
-          <SingleContact
-            :contact="contact"
-            @deleteContact="() => renderContacts()"
-          />
+          <SingleContact :contact="contact" @deleteContact="getContacts" />
         </li>
       </transition-group>
     </ul>
-    <button @click="addContact">add contact</button>
+    <button @click="() => (this.showAddForm = true)">add contact</button>
+    <transition enter-active-class="fade-in" leave-active-class="fade-out">
+      <div  v-if="showAddForm" class="modal-container">
+        <AddContact @closeModal="() => (this.showAddForm = false)" @addContact="getContacts"  />
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import AddContact from "./AddContact.vue";
 import SingleContact from "./SingleContact.vue";
 export default {
   name: "AllContacts",
   components: {
     SingleContact,
+    AddContact,
   },
   data() {
     return {
       contacts: [],
-      renderToggle: false,
+      showAddForm: false,
     };
   },
   mounted: function () {
@@ -44,15 +48,6 @@ export default {
     async getContacts() {
       const { data } = await axios.get("http://localhost:3001/");
       this.contacts = data;
-    },
-    renderContacts() {
-      console.log("clicked!");
-      this.getContacts();
-    },
-  },
-  watch: {
-    renderToggle: function () {
-      this.getContacts();
     },
   },
 };
